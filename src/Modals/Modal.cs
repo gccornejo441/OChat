@@ -1,6 +1,10 @@
-﻿namespace OllamaClient.Modals;
-public class Modal
+﻿using ReactiveUI;
+
+namespace OllamaClient.Modals;
+public class Modal : ReactiveObject
 {
-	public string Title { get; set; }
-	public string Message { get; set; }
+	private string? title;
+	private string? message;
+	public string Title { get => title; set => this.RaiseAndSetIfChanged(ref title,value); }
+	public string Message { get => message; set => this.RaiseAndSetIfChanged(ref message,value); }
 }

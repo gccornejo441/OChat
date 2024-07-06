@@ -11,14 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="OllamaSharp" Version="2.0.6" />
     <PackageReference Include="ReactiveUI" Version="20.1.1" />
+    <PackageReference Include="ReactiveUI.WPF" Version="20.1.1" />
+    <PackageReference Include="wpf-ui" Version="3.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Assets\Images\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>

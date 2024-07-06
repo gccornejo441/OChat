@@ -8,9 +8,10 @@
 	Title="{Binding Modal.Title}"
 	Width="400"
 	Height="200"
+	Name="SuperModal"
 	mc:Ignorable="d">
 	<Grid>
-		<TextBlock Text="{Binding Modal.Message}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-		<Button Content="Close" Command="{Binding CloseCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+		<TextBlock Name="ModalMessage" Text="{Binding Modal.Message}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		<Button Name="CloseButton" Content="Close" Command="{Binding CloseCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 	</Grid>
 </Window>

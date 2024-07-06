@@ -1,23 +1,47 @@
-﻿using System.Data.Common;
-using System.Diagnostics;
+﻿using System.Reactive.Disposables;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 
-using ModernWpf;
+using OllamaClient.ViewModels;
 
-using OllamaClient.Services;
+using ReactiveUI;
 
 namespace OllamaClient;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : Window, IViewFor<MainViewModel>
 {
+	public static readonly DependencyProperty ViewModalProperty = DependencyProperty.Register(
+	"ViewModel",typeof(MainViewModel),typeof(MainWindow),new PropertyMetadata(null));
+
 	public MainWindow()
 	{
 		InitializeComponent();
 
+		this.WhenActivated(d =>
+		{
+			this.BindCommand(
+				ViewModel,
+				vm => vm.ShowModalCommand,
+				v => v.ShowDialogButton).DisposeWith(d);
+
+		});
+
+		ViewModel = new MainViewModel();
+
 	}
 
+	public MainViewModel? ViewModel
+	{
+		get => (MainViewModel)GetValue(ViewModalProperty);
+
+		set => SetValue(ViewModalProperty,value);
+	}
+
+	object? IViewFor.ViewModel
+	{
+		get => ViewModel;
+
+		set => ViewModel = (MainViewModel)value;
+	}
 }
