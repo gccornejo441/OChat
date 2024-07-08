@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,26 +18,13 @@ namespace OllamaClient;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App
 {
 	private IHost host;
+
 	public App()
 	{
-		host = Host.CreateDefaultBuilder()
-			.ConfigureAppConfiguration((context,config) =>
-			{
-				config.AddJsonFile("appsettings.json",optional: true);
-			})
-			.ConfigureServices((context,services) =>
-			{
-				ConfigureServices(services);
-			})
-			.ConfigureLogging(logging =>
-			{
-				logging.ClearProviders();
-				logging.AddConsole();
-			})
-			.Build();
+		Init();
 	}
 
 	protected override void OnStartup(StartupEventArgs e)
@@ -45,24 +33,17 @@ public partial class App : Application
 
 		MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
 		mainWindow.Show();
-
-	}
-
-	private void ConfigureServices(IServiceCollection services)
-	{
-		services.AddSingleton<IModalViewModel,ModalViewModel>();
-		services.AddSingleton<IMainViewModel,MainViewModel>();
-		services.AddSingleton<MainWindow>();
-		services.AddHttpClient<IOllamaApiClient,OllamaApiClient>(client =>
-		{
-			client.BaseAddress = new Uri("http://localhost:11434");
-		});
 	}
 
 	protected override void OnExit(ExitEventArgs e)
 	{
 		host.Dispose();
 		base.OnExit(e);
+	}
+
+	private void Init()
+	{
+		host = GenericHost.CreateHostBuilder().Build();
 	}
 
 }

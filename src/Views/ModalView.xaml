@@ -1,17 +1,62 @@
 ﻿<Window
-	x:Class="OllamaClient.Views.ModalView"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:OllamaClient.Views"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	Title="{Binding Modal.Title}"
-	Width="400"
-	Height="200"
-	Name="SuperModal"
-	mc:Ignorable="d">
-	<Grid>
-		<TextBlock Name="ModalMessage" Text="{Binding Modal.Message}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-		<Button Name="CloseButton" Content="Close" Command="{Binding CloseCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-	</Grid>
+    x:Class="OllamaClient.Views.ModalView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OllamaClient.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{Binding Modal.Title}"
+    Width="500"
+    Height="450"
+    Name="SuperModal"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <!-- Style for TextBlock -->
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+
+        <!-- Style for Button -->
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Background" Value="#007ACC" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <!-- Style for Window -->
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Title TextBlock -->
+        <TextBlock Grid.Row="0" Text="{Binding Modal.Title}" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,10" />
+
+        <!-- Scrollable TextBlock -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <TextBlock Name="ModalMessage" Text="{Binding Modal.Message}" TextAlignment="Justify" />
+        </ScrollViewer>
+
+        <!-- Close Button -->
+        <Button Grid.Row="2" Name="CloseButton" Content="Close" Command="{Binding CloseCommand}" HorizontalAlignment="Center" />
+    </Grid>
 </Window>

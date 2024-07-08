@@ -18,7 +18,7 @@ public class ModalViewModelTest
 			}
 		};
 
-		viewModel.Modal = new Modal(); 
+		viewModel.Modal = new Modal("Title1", "Message1"); 
 
 		Assert.True(propertyChangedRaised);
 	}

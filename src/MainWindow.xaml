@@ -5,50 +5,50 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:OllamaClient"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:viewmodels="clr-namespace:OllamaClient.ViewModels"
 	Title="Ollama Client"
-	Width="525"
-	Height="350"
+	d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+	d:DesignHeight="550"
+	d:DesignWidth="525"
 	mc:Ignorable="d">
 
-	<Grid>
-		<Border>
-			<Grid>
-				<ComboBox
-					Width="200"
-					Margin="10"
-					Name="ModelsCB"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					ItemsSource="{Binding Models}"
-					SelectedItem="{Binding SelectedModel}" />
-				<Button
-					Name="GetModels"
-					Width="200"
-					Margin="10,40,0,0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Command="{Binding GetModelsCommand}"
-					Content="Get Models" />
-				<Button
-					Name="ShowModelInfo"
-					Width="200"
-					Margin="10,80,0,0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Command="{Binding ShowModelInfoCommand}"
-					Content="Show Model Info" />
-				<TextBox
-					Name="ApiResponseTB"
-					Width="480"
-					Height="200"
-					Margin="10,120,0,0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					AcceptsReturn="True"
-					Text="{Binding ApiResponse}"
-					TextWrapping="Wrap" />
-				<Button Name="ShowDialogButton" Content="Show Dialog" />
-			</Grid>
-		</Border>
-	</Grid>
+	<Border>
+		<StackPanel>
+			<ComboBox
+				Name="ModelsCB"
+				Width="200"
+				Margin="10"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				ItemsSource="{Binding Models}"
+				SelectedItem="{Binding SelectedModel}" />
+			<Button
+				Name="GetModels"
+				Width="200"
+				Margin="10,40,0,0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Command="{Binding GetModelsCommand}"
+				Content="Get Models" />
+			<Button
+				Name="ShowModelInfo"
+				Width="200"
+				Margin="10,80,0,0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Command="{Binding ShowModelInfoCommand}"
+				Content="Show Model Info" />
+			<TextBox
+				Name="ApiResponseTB"
+				Width="480"
+				Height="200"
+				Margin="10,120,0,0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				AcceptsReturn="True"
+				Text="{Binding ApiResponse}"
+				TextWrapping="Wrap" />
+			<Button Name="ShowDialogButton" Content="Show Dialog" />
+		</StackPanel>
+	</Border>
 </Window>

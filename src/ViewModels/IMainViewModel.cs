@@ -12,4 +12,5 @@ public interface IMainViewModel
 	public string SelectedModel { get; set; }
 	public ObservableCollection<string> Models { get; set; }
 	public string ApiResponse { get; set; }
+	public ObservableCollection<string> SampleList { get; set; }
 }
