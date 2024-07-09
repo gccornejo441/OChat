@@ -14,6 +14,11 @@
 
 	<Border>
 		<StackPanel>
+			<ComboBox Name="sampleListCb" 
+					  Width="200"
+					  Margin="10"
+					  HorizontalAlignment="Left"
+					  VerticalAlignment="Top"/>
 			<ComboBox
 				Name="ModelsCB"
 				Width="200"
@@ -48,7 +53,7 @@
 				AcceptsReturn="True"
 				Text="{Binding ApiResponse}"
 				TextWrapping="Wrap" />
-			<Button Name="ShowDialogButton" Content="Show Dialog" />
+			<Button Name="ShowDialogButton" Content="Show Dialog" Command="{Binding ShowModalCommand}" />
 		</StackPanel>
 	</Border>
 </Window>

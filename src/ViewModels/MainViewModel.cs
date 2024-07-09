@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reactive;
 using System.Text.Json;
 using System.Xml;
@@ -11,11 +12,14 @@ using OllamaSharp.Models;
 
 using ReactiveUI;
 
+using Wpf.Ui;
+using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
+
 namespace OllamaClient.ViewModels;
 public class MainViewModel : ReactiveObject
 {
 	private readonly IOllamaApiClient _apiClient;
-
 	public ReactiveCommand<Unit,Unit> ShowModalCommand { get; }
 	public ReactiveCommand<Unit,Unit> GetModelsCommand { get; }
 	public ReactiveCommand<Unit,Unit> ShowModelInfoCommand { get; }
@@ -59,18 +63,29 @@ public class MainViewModel : ReactiveObject
 	{
 		_apiClient = apiClient;
 
+		SampleList = new ObservableCollection<string>()
+		{
+			"Turkey",
+			"Ostrich"
+		};
+
 		Models = new ObservableCollection<string>();
 		ShowModalCommand = ReactiveCommand.Create(ShowModal);
 		GetModelsCommand = ReactiveCommand.CreateFromTask(GetModels);
 		ShowModelInfoCommand = ReactiveCommand.CreateFromTask(ShowModelInfo);
+
+		InitializationEvents();
 	}
 
+    private void InitializationEvents()
+    {
+        
+    }
 
-	private void ShowModal()
+    private async void ShowModal()
 	{
-		
-		var modal = new Modal("Connect To Model", "Enter Uri");
-		
+		var modal = new Modal("Connect To Model","Enter Uri");
+
 		var modalViewModel = new ModalViewModel { Modal = modal };
 		var modalView = new ModalView { ViewModel = modalViewModel };
 

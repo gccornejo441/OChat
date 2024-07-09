@@ -8,7 +8,7 @@
     <UseWPF>true</UseWPF>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ollama.png</PackageIcon>
-    <FileVersion> 1.0.0.3</FileVersion>
+    <FileVersion> 1.0.0.4</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,12 +19,15 @@
     <PackageReference Include="ReactiveUI" Version="20.1.1" />
     <PackageReference Include="ReactiveUI.Events.WPF" Version="15.1.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="20.1.1" />
+    <PackageReference Include="Semver" Version="2.3.0" />
+    <PackageReference Include="System.Reflection.MetadataLoadContext" Version="8.0.0" />
     <PackageReference Include="wpf-ui" Version="3.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Models\" />
+    <Folder Include="Resources\Styles\" />
   </ItemGroup>
 
   <ItemGroup>

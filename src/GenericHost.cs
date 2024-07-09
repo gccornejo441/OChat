@@ -7,6 +7,10 @@ using OllamaClient.ViewModels;
 
 using OllamaSharp;
 
+using ReactiveUI;
+
+using Wpf.Ui;
+
 namespace OllamaClient;
 public static class GenericHost
 {

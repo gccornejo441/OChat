@@ -11,9 +11,8 @@
     Name="SuperModal"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <!-- Style for TextBlock -->
-        <Style TargetType="TextBlock">
+	<Window.Resources>
+		<Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Foreground" Value="Black" />
@@ -21,7 +20,6 @@
             <Setter Property="Margin" Value="10" />
         </Style>
 
-        <!-- Style for Button -->
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Arial" />
             <Setter Property="FontSize" Value="14" />
