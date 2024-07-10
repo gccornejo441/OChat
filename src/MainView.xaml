@@ -1,5 +1,5 @@
 ﻿<Window
-	x:Class="OllamaClient.MainWindow"
+	x:Class="OllamaClient.MainView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,11 +14,12 @@
 
 	<Border>
 		<StackPanel>
-			<ComboBox Name="sampleListCb" 
-					  Width="200"
-					  Margin="10"
-					  HorizontalAlignment="Left"
-					  VerticalAlignment="Top"/>
+			<ComboBox
+				Name="sampleListCb"
+				Width="200"
+				Margin="10"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top" />
 			<ComboBox
 				Name="ModelsCB"
 				Width="200"
@@ -53,7 +54,10 @@
 				AcceptsReturn="True"
 				Text="{Binding ApiResponse}"
 				TextWrapping="Wrap" />
-			<Button Name="ShowDialogButton" Content="Show Dialog" Command="{Binding ShowModalCommand}" />
+			<Button
+				Name="ShowDialogButton"
+				Command="{Binding ShowModalCommand}"
+				Content="Show Dialog" />
 		</StackPanel>
 	</Border>
 </Window>

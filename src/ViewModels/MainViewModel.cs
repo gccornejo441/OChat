@@ -52,7 +52,12 @@ public class MainViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _modelResponse,value);
 	}
 
-	private ObservableCollection<string> sampleList;
+	private ObservableCollection<string> sampleList = new ObservableCollection<string>
+	{
+			"Turkey",
+			"Ostrich"
+	};
+
 	public ObservableCollection<string> SampleList
 	{
 		get => sampleList;
@@ -63,11 +68,7 @@ public class MainViewModel : ReactiveObject
 	{
 		_apiClient = apiClient;
 
-		SampleList = new ObservableCollection<string>()
-		{
-			"Turkey",
-			"Ostrich"
-		};
+		SampleList = new ObservableCollection<string>();
 
 		Models = new ObservableCollection<string>();
 		ShowModalCommand = ReactiveCommand.Create(ShowModal);

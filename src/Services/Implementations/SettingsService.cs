@@ -1,3 +1,7 @@
+/// <copyright file="SettingsService.cs">
+/// © 2023 gabecornejo.com, Inc. All rights reserved.
+/// </copyright>
+
 using OllamaClient.Core;
 using OllamaClient.Services.Interfaces;
 using ReactiveUI;
