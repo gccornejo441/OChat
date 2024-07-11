@@ -21,9 +21,9 @@ public static class GenericHost
 		.CreateDefaultBuilder()
 		.ConfigureAppConfiguration((context,config) =>
 		{
-			config.SetBasePath(Path.GetDirectoryName(System.AppContext.BaseDirectory));
-			config.AddJsonFile("appsettings.json",optional: true);
-		})
+            config.SetBasePath(Path.GetDirectoryName(System.AppContext.BaseDirectory))
+                  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        })
 		.ConfigureServices((context,services) =>
 		{
 			services.AddHostedService<AppBackgroundService>();
