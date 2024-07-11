@@ -2,6 +2,7 @@
 
 using Moq;
 
+using OllamaClient.Services.Interfaces;
 using OllamaClient.ViewModels;
 
 using OllamaSharp;
@@ -11,12 +12,13 @@ namespace OllamaClient.Test.ViewModels;
 public class MainViewModelTests
 {
 	private readonly Mock<IOllamaApiClient> mockApiClient;
+	private readonly Mock<IModalService> mockObservableModel;
 	private readonly MainViewModel viewModel;
 
 	public MainViewModelTests()
 	{
 		mockApiClient = new Mock<IOllamaApiClient>();
-		viewModel = new MainViewModel(mockApiClient.Object);
+		viewModel = new MainViewModel(mockApiClient.Object, mockObservableModel.Object);
 	}
 
 

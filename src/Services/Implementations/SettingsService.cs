@@ -1,30 +1,25 @@
-/// <copyright file="SettingsService.cs">
-/// © 2023 gabecornejo.com, Inc. All rights reserved.
-/// </copyright>
-
-using OllamaClient.Core;
+﻿
 using OllamaClient.Services.Interfaces;
-using ReactiveUI;
 
-public partial class ServicesService : ReactiveObject, ISettingsService
+namespace OllamaClient.Services.Implementations;
+public class SettingsService : ISettingsService
 {
-    private bool isLoaded;
-    private readonly string assemblyVersion;
-    public const string ProductName = "OllamaClient";
-    public const string AssemblyName = ProductName + ".dll";
+	private bool isLoaded;
+	public const string ProductName = "OllamaClient";
+	public const string AssemblyName = ProductName + ".dll";
 
-    public ServicesService()
-    {
-        assemblyVersion = AssemblyUtilities.GetAssemblyVersion(AssemblyName).ToString();
-    }
+	public SettingsService()
+	{
+	}
 
-    public bool IsHealthy()
-    {
-        throw new NotImplementedException();
-    }
+	public bool IsHealthy()
+	{
+		isLoaded = true;
+		return isLoaded;
+	}
 
-    public void Save()
-    {
-        throw new NotImplementedException();
-    }
+	public void Save()
+	{
+		throw new NotImplementedException();
+	}
 }

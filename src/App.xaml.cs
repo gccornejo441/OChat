@@ -4,6 +4,10 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using OllamaClient.Services.Interfaces;
+
+using Splat;
+
 namespace OllamaClient;
 
 /// <summary>
@@ -18,8 +22,9 @@ public partial class App : Application
 
 		Init();
 
-		// var settingsService = Locator.Current.GetService<ISettingsService>();
-		// if (settingsService.IsHealthy()) throw new FileNotFoundException("File not found");
+		SetupExceptionHandling();
+		var settingService = host.Services.GetRequiredService<ISettingsService>();
+		//if (settingService.IsHealthy()) throw new FileNotFoundException("File not found");
 	}
 
 	protected override void OnStartup(StartupEventArgs e)
@@ -30,15 +35,30 @@ public partial class App : Application
 		mainWindow.Show();
 	}
 
+	private void SetupExceptionHandling()
+	{
+		AppDomain.CurrentDomain.UnhandledException += (sender,e) =>
+		{
+			MessageBox.Show(e.ExceptionObject.ToString(),"Error",MessageBoxButton.OK,MessageBoxImage.Error);
+		};
+
+		this.DispatcherUnhandledException += (sender,e) =>
+		{
+
+		};
+	}
+
+	private void Init()
+	{
+		host = GenericHost.CreateHostBuilder().Build();
+		host.Start();
+	}
+
 	protected override void OnExit(ExitEventArgs e)
 	{
 		host.Dispose();
 		base.OnExit(e);
 	}
 
-	private void Init()
-	{
-		host = GenericHost.CreateHostBuilder().Build();
-	}
 
 }

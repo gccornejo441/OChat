@@ -1,46 +1,43 @@
-﻿using System.IO;
+using System.IO;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using OllamaClient.Services.Interfaces;
+using OllamaClient.Services.Implementations;
 using OllamaClient.ViewModels;
 
 using OllamaSharp;
 
-using ReactiveUI;
-
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-
-using Splat;
-
-using Wpf.Ui;
 
 namespace OllamaClient;
 public static class GenericHost
 {
 	public static IHostBuilder CreateHostBuilder() => Host
 		.CreateDefaultBuilder()
-		.ConfigureAppConfiguration((context, config) =>
+		.ConfigureAppConfiguration((context,config) =>
 		{
 			config.SetBasePath(Path.GetDirectoryName(System.AppContext.BaseDirectory));
-			config.AddJsonFile("appsettings.json", optional: true);
+			config.AddJsonFile("appsettings.json",optional: true);
 		})
-		.ConfigureServices((context, services) =>
+		.ConfigureServices((context,services) =>
 		{
 			services.AddHostedService<AppBackgroundService>();
-			services.AddSingleton<IModalViewModel, ModalViewModel>();
+			services.AddSingleton<IModalViewModel,ModalViewModel>();
+			services.AddSingleton<ISettingsService, SettingsService>();
 			services.AddSingleton<MainViewModel>();
 			services.AddSingleton<MainView>();
-			services.AddHttpClient<IOllamaApiClient, OllamaApiClient>(client =>
+            services.AddSingleton<IModalService, ModalService>();
+			services.AddHttpClient<IOllamaApiClient,OllamaApiClient>(client =>
 			{
 				client.BaseAddress = new Uri("http://localhost:11434");
 			});
-
-			Locator.CurrentMutable.Register(() => new MainView(Locator.Current.GetService<MainViewModel>()),typeof(IViewFor<MainViewModel>));
 		})
-		.ConfigureLogging((context, logging) =>
+		.ConfigureLogging((context,logging) =>
 		{
 			logging.ClearProviders();
 			logging.AddSerilog(new LoggerConfiguration()

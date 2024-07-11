@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -8,9 +7,8 @@
     <UseWPF>true</UseWPF>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ollama.png</PackageIcon>
-    <FileVersion> 1.0.0.5</FileVersion>
+    <FileVersion> 1.0.0.6</FileVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
@@ -27,21 +25,19 @@
     <PackageReference Include="System.Reflection.MetadataLoadContext" Version="8.0.0" />
     <PackageReference Include="wpf-ui" Version="3.0.4" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Converters\" />
+    <Folder Include="Core\" />
     <Folder Include="Models\" />
     <Folder Include="Resources\Styles\" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <None Update="Assets\Icons\app.ico">
       <Pack>True</Pack>
@@ -52,5 +48,14 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\gabriel.cornejo\source\repos\OChat\src\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove=".editorconfig" />
+    <None Remove="build.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\gabriel.cornejo\source\repos\OChat\src\.editorconfig" />
+  </ItemGroup>
 </Project>
