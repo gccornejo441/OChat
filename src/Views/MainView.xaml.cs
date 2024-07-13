@@ -1,21 +1,15 @@
-﻿using System;
-using System.Reactive.Disposables;
-using System.Windows;
+﻿using System.Windows;
 
 using OllamaClient.ViewModels;
-
-using ReactiveUI;
-
-using Splat;
 
 namespace OllamaClient;
 
 /// <summary>
 /// Interaction logic for MainView.xaml
 /// </summary>
-public partial class MainView : Window
+public partial class MainView : Wpf.Ui.Controls.FluentWindow
 {
-	public MainView(MainViewModel mainViewModel)
+	public MainView(IMainViewModel mainViewModel)
 	{
 		InitializeComponent();
 

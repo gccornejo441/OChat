@@ -1,6 +1,7 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OllamaClient.Services.Implementations;
@@ -16,7 +17,8 @@ public static class GenericHost
 		.CreateDefaultBuilder()
 		.ConfigureAppConfiguration((context, config) =>
 		{
-			config.SetBasePath(Path.GetDirectoryName(System.AppContext.BaseDirectory))
+			var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
+			config.SetBasePath(basePath)
 				  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 		})
 		.ConfigureServices((context, services) =>
@@ -25,7 +27,7 @@ public static class GenericHost
 			services.AddSingleton<IModalViewModel, ModalViewModel>();
 			services.AddSingleton<ISettingsService, SettingsService>();
 			services.AddSingleton<ILoggerService, LoggerService>();
-			services.AddSingleton<MainViewModel>();
+			services.AddSingleton<IMainViewModel, MainViewModel>();
 			services.AddSingleton<MainView>();
 			services.AddSingleton<IModalService, ModalService>();
 			services.AddHttpClient<IOllamaApiClient, OllamaApiClient>(client =>
@@ -33,17 +35,7 @@ public static class GenericHost
 				client.BaseAddress = new Uri("http://localhost:11434");
 			});
 		})
-		.ConfigureLogging((context, logging) =>
-		{
-			logging.ClearProviders();
-			logging.AddDebug();
-			logging.AddSerilog(new LoggerConfiguration()
-				.ReadFrom.Configuration(context.Configuration)
-				.WriteTo.Debug()
-				.CreateLogger());
-		})
 		.UseEnvironment(Environments.Development);
-
 }
 
 public class AppBackgroundService : IHostedService

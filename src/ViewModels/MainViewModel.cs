@@ -10,7 +10,7 @@ using OllamaSharp.Models;
 using ReactiveUI;
 
 namespace OllamaClient.ViewModels;
-public class MainViewModel : ReactiveObject
+public class MainViewModel : ReactiveObject, IMainViewModel
 {
     private readonly IOllamaApiClient _apiClient;
     private readonly IModalService _modalService;
@@ -55,7 +55,7 @@ public class MainViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _modelResponse, value);
     }
 
-    public MainViewModel(IOllamaApiClient apiClient, IModalService modalService)
+	public MainViewModel(IOllamaApiClient apiClient, IModalService modalService)
     {
         _apiClient = apiClient;
         _modalService = modalService;

@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Windows;
-
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using OllamaClient.Services.Implementations;
 using OllamaClient.Services.Interfaces;
 using Serilog;
 
@@ -19,15 +19,9 @@ public partial class App : Application
 	{
 		Directory.SetCurrentDirectory(AppContext.BaseDirectory); // Make sure we're in the right directory
 
-		Init();
-
-		Log.Information("HEY ASSHOLE, WELCOME!!!!!!!!!!!!!!!!!");
-		Log.Information("HEY ASSHOLE, WELCOME!!!!!!!!!!!!!!!!!");
-		Log.Information("HEY ASSHOLE, WELCOME!!!!!!!!!!!!!!!!!");
-		Log.Information("HEY ASSHOLE, WELCOME!!!!!!!!!!!!!!!!!");
-		Log.Information("HEY ASSHOLE, WELCOME!!!!!!!!!!!!!!!!!");
-
 		SetupExceptionHandling();
+
+		Init();
 	}
 
 	protected override void OnStartup(StartupEventArgs e)
@@ -36,13 +30,38 @@ public partial class App : Application
 
 		var mainWindow = _host.Services.GetRequiredService<MainView>();
 		mainWindow.Show();
-	}
 
+		try
+		{
+			var configuration = _host.Services.GetService<IConfiguration>();
+			var loggerService = _host.Services.GetService<ILoggerService>();
+
+			// Retrieve and log application version
+			var appVersion = configuration.GetValue<string>("OllamaClientAppSettings:Version");
+			if (string.IsNullOrEmpty(appVersion))
+			{
+				throw new Exception("App version not found in configuration.");
+			}
+			loggerService.Info("Starting application");
+			loggerService.Info($"Version: {appVersion}");
+
+		}
+		catch (Exception ex)
+		{
+
+		}
+	}
 
 	private void Init()
 	{
 		_host = GenericHost.CreateHostBuilder().Build();
 		_host.Start();
+
+		Log.Logger = new LoggerConfiguration()
+			.WriteTo.Debug()
+			.CreateLogger();
+
+		Log.Information("WELCOME TO OLLAMA CLIENT!!!!!!!!!!!!!!!!!");
 
 		var settingService = _host.Services.GetRequiredService<ISettingsService>();
 
@@ -87,8 +106,4 @@ public partial class App : Application
 		MessageBox.Show($"{source}: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 	}
 
-	//ILoggerFactory _loggerFactory = LoggerFactory.Create(builder =>
-	//{
-
-	//});
 }

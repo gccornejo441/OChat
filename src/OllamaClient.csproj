@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ollama.png</PackageIcon>
-    <FileVersion>1.0.8</FileVersion>
+    <FileVersion>1.0.9</FileVersion>
     <StartupObject>OllamaClient.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
@@ -57,8 +57,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove=".editorconfig" />
+    <None Remove="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\gabriel.cornejo\source\repos\OChat\src\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Compile>
+	</ItemGroup>
+  <ItemGroup>
+    <Compile Update="AssemblyInfo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 </Project>
