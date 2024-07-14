@@ -32,7 +32,7 @@ public static class GenericHost
 			services.AddSingleton<IModalService, ModalService>();
 			services.AddHttpClient<IOllamaApiClient, OllamaApiClient>(client =>
 			{
-				client.BaseAddress = new Uri("http://localhost:11434");
+				client.BaseAddress = new Uri();
 			});
 		})
 		.UseEnvironment(Environments.Development);

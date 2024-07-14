@@ -14,14 +14,5 @@ public partial class MainView : Wpf.Ui.Controls.FluentWindow
 		InitializeComponent();
 
 		DataContext = mainViewModel;
-		MainWindowInitialization();
 	}
-
-	private void MainWindowInitialization()
-	{
-		this.Height = 350;
-		this.Width = 525;
-		this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-	}
-
 }

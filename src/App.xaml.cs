@@ -36,12 +36,13 @@ public partial class App : Application
 			var configuration = _host.Services.GetService<IConfiguration>();
 			var loggerService = _host.Services.GetService<ILoggerService>();
 
-			// Retrieve and log application version
+			
 			var appVersion = configuration.GetValue<string>("OllamaClientAppSettings:Version");
 			if (string.IsNullOrEmpty(appVersion))
 			{
 				throw new Exception("App version not found in configuration.");
 			}
+
 			loggerService.Info("Starting application");
 			loggerService.Info($"Version: {appVersion}");
 

@@ -7,11 +7,12 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 	xmlns:vm="clr-namespace:OllamaClient.ViewModels"
-	Title="Ollama Client"
+	Title="{Binding Title, Mode=OneWay}"
 	MinWidth="700"
 	MinHeight="200"
 	MaxWidth="700"
-	d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+	d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
+	                                 IsDesignTimeCreatable=False}"
 	Background="{ui:ThemeResource ApplicationBackgroundBrush}"
 	ExtendsContentIntoTitleBar="True"
 	SizeToContent="Height"
@@ -29,46 +30,83 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Row="0">
+
+		<Grid
+			Grid.Row="0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<Label
+				x:Name="modelNameLbl"
+				Grid.Column="0"
+				Margin="5,5,5,5"
+				HorizontalAlignment="Left"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+				Content="Model"
+				FontSize="18" />
+
+			<ComboBox
+				Name="ModelsCB"
+				Grid.Column="1"
+				Width="120"
+				Height="36"
+				Margin="5,5,5,5"
+				ItemsSource="{Binding Models}"
+				SelectedItem="{Binding SelectedModel}" />
+		</Grid>
+
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 			<StackPanel>
-				<Label x:Name="promptLbl" Content="Enter Prompt" />
+				<Label
+					x:Name="promptLbl"
+					Content="Enter Prompt"
+					FontSize="20" />
 				<TextBox
 					x:Name="promptTB"
-					Width="200"
-					Margin="0,0,0,20"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
+					Height="36"
+					Margin="0,5,0,0"
+					HorizontalContentAlignment="Right"
 					Text="{Binding Prompt, Mode=TwoWay}" />
+			</StackPanel>
+			
+			<Grid
+				Grid.Row="2"
+				Margin="0,5,0,5"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
 				<Button
 					x:Name="sendBtn"
+					Grid.Column="0"
+					Width="120"
+					Height="36"
+					Margin="5,5,5,5"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
 					Command="{Binding SendPromptCommand}"
 					Content="Send Prompt" />
-				<ComboBox
-					Name="ModelsCB"
-					Width="200"
-					Margin="0,0,0,20"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					ItemsSource="{Binding Models}"
-					SelectedItem="{Binding SelectedModel}" />
-
-			</StackPanel>
+			</Grid>
 		</Grid>
-		<Button
-			Name="GetModels"
-			Grid.Row="1"
-			Width="200"
-			Margin="0,0,0,20"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Top"
-			Command="{Binding GetModelsCommand}"
-			Content="Get Models" />
 
 		<Button
 			Name="ShowModelInfo"
 			Grid.Row="2"
 			Width="200"
-			Margin="0,0,0,20"
+			Margin="0,5,0,5"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top"
 			Command="{Binding ShowModelInfoCommand}"
@@ -77,24 +115,12 @@
 		<TextBox
 			Name="ApiResponseTB"
 			Grid.Row="3"
-			Width="480"
+			Width="660"
 			Height="200"
 			AcceptsReturn="True"
 			IsReadOnly="True"
 			Text="{Binding ApiResponse, Mode=OneWay}"
-			TextWrapping="Wrap" Margin="20,20,20,20" />
+			TextWrapping="Wrap" />
 
-		<Button
-			Name="ShowDialogButton"
-			Grid.Row="4"
-			Width="200"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Top"
-			Command="{Binding ShowModalCommand}"
-			Content="Show Dialog" />
-		<ui:TitleBar
-			CanMaximize="False"
-			ShowMaximize="False"
-			ShowMinimize="False" />
 	</Grid>
 </ui:FluentWindow>
