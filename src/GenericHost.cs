@@ -1,14 +1,14 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OllamaClient.Services.Implementations;
 using OllamaClient.Services.Interfaces;
 using OllamaClient.ViewModels;
 using OllamaSharp;
-using Serilog;
+using OllamaSharp.Models.Chat;
+using OllamaSharp.Streamer;
 
 namespace OllamaClient;
 public static class GenericHost
@@ -32,7 +32,7 @@ public static class GenericHost
 			services.AddSingleton<IModalService, ModalService>();
 			services.AddHttpClient<IOllamaApiClient, OllamaApiClient>(client =>
 			{
-				client.BaseAddress = new Uri();
+				client.BaseAddress = new Uri("http://localhost:11434");
 			});
 		})
 		.UseEnvironment(Environments.Development);
@@ -47,10 +47,19 @@ public class AppBackgroundService : IHostedService
 		_logger = logger;
 	}
 
-	public Task StartAsync(CancellationToken cancellationToken)
+	public async Task StartAsync(CancellationToken cancellationToken)
 	{
-		_logger.LogInformation("MyBackgroundService is starting.");
-		return Task.CompletedTask;
+		try
+		{
+			_logger.LogInformation("MyBackgroundService is starting.");
+			await Task.CompletedTask;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogError(ex, "An error occurred while starting the background service.");
+			throw;
+		}
+
 	}
 
 	public Task StopAsync(CancellationToken cancellationToken)

@@ -67,7 +67,6 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 	private readonly IOllamaApiClient _apiClient;
 	private readonly IModalService _modalService;
-	private readonly Subject<string> _apiResponseStream;
 	public ReactiveCommand<Unit, Unit> ShowModalCommand { get; }
 	public ReactiveCommand<Unit, Unit> GetModelsCommand { get; }
 	public ReactiveCommand<Unit, Unit> ShowModelInfoCommand { get; }
@@ -80,10 +79,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		Title = "Ollama Client";
 
 		Models = new ObservableCollection<string>();
-		_apiResponseStream = new Subject<string>();
 
-		_apiResponseStream.ObserveOn(RxApp.MainThreadScheduler)
-			.Subscribe(response => ApiResponse += response);
 
 		Task.Run(async () => await GetModels()).ConfigureAwait(false);
 
@@ -136,7 +132,6 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 			}
 		});
 
-		
 		if (!string.IsNullOrEmpty(Prompt))
 		{
 			await chat.Send(Prompt);

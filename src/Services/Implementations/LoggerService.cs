@@ -1,50 +1,83 @@
 ﻿using Microsoft.Build.Framework;
+using Microsoft.Extensions.Logging;
 using OllamaClient.Services.Interfaces;
-using Serilog;
 
 namespace OllamaClient.Services.Implementations;
+
+public enum LogType
+{
+	Normal,
+	Error,
+	Important,
+	Success,
+	Warning,
+	Debug
+}
+
 public class LoggerService : ILoggerService
 {
+	private readonly ILogger<LoggerService> _logger;
+
 	public LoggerVerbosity LoggerVerbosity { get; private set; } = LoggerVerbosity.Normal;
 
-	public void SetLoggerVerbosity(LoggerVerbosity verbosity) => LoggerVerbosity = verbosity;
-	
-	public void Debug(string msg)
-	{
-		Log.Information(msg);
-	}
+	public LoggerService(ILogger<LoggerService> logger) => _logger = logger;
 
-	public void Error(string msg)
-	{
-		Log.Error(msg);
-	}
+	public void Debug(string message) => Log(message, LogType.Debug);
+
+	public void Success(string message) => Log(message, LogType.Success);
+
+	public void Info(string message) => Log(message, LogType.Important);
+
+	public void Warning(string message) => Log(message, LogType.Warning);
+
+	public void Error(string message) => Log(message, LogType.Error);
 
 	public void Error(Exception exception)
 	{
-		Log.Error(exception, GetExceptionMessage(exception));
+		if (LoggerVerbosity == LoggerVerbosity.Quiet)
+		{
+			return;
+		}
+
+		string message = exception.Message;
+
+		if (LoggerVerbosity >= LoggerVerbosity.Detailed)
+		{
+			message = $"Message: {exception.Message}\nSource: {exception.Source}\nStackTrace: {exception.StackTrace}";
+		}
+
+		Log(message, LogType.Error);
 	}
 
-	public void Info(string s)
+	private void Log(string message, LogType type)
 	{
-		Log.Information(s);
-	}
-	public void Info(int id, string s)
-	{
-		Log.ForContext("InfoCode", id).Information(s);
+		if (LoggerVerbosity == LoggerVerbosity.Quiet)
+		{
+			return;
+		}
+
+		switch (type)
+		{
+			case LogType.Debug:
+			case LogType.Normal:
+				_logger.LogDebug(message);
+				break;
+			case LogType.Success:
+				_logger.LogInformation(message);
+				break;
+			case LogType.Important:
+				_logger.LogWarning(message);
+				break;
+			case LogType.Warning:
+				_logger.LogError(message);
+				break;
+			case LogType.Error:
+				_logger.LogCritical(message);
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(type), type, null);
+		}
 	}
 
-	public void Success(string msg)
-	{
-		Log.Information("SUCCESS: {Message}", msg);
-	}
-
-	public void Warning(string s)
-	{
-		Log.Warning(s);
-	}
-
-	public string GetExceptionMessage(Exception exception)
-	{
-		return $"Message: {exception.Message}\nSource: {exception.Source}\nStackTrace: {exception.StackTrace}";
-	}
+	public void SetLoggerVerbosity(LoggerVerbosity verbosity) => LoggerVerbosity = verbosity;
 }
