@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reactive;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Text.Json;
 using System.Windows;
 using OllamaClient.Services.Interfaces;
@@ -10,9 +9,9 @@ using OllamaSharp;
 using OllamaSharp.Models;
 
 using ReactiveUI;
+using Serilog;
 
 namespace OllamaClient.ViewModels;
-
 
 public class MainViewModel : ReactiveObject, IMainViewModel
 {
@@ -61,6 +60,13 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		set => this.RaiseAndSetIfChanged(ref _modelResponse, value);
 	}
 
+	private bool isLoading;
+	public bool IsLoading
+	{
+		get => isLoading;
+		set => this.RaiseAndSetIfChanged(ref isLoading, value);
+	}
+
 	#endregion
 
 	#region Dependencies/Services
@@ -79,7 +85,6 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		Title = "Ollama Client";
 
 		Models = new ObservableCollection<string>();
-
 
 		Task.Run(async () => await GetModels()).ConfigureAwait(false);
 
@@ -103,6 +108,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		try
 		{
 			var modelList = await _apiClient.ListLocalModels();
+
 			Application.Current.Dispatcher.Invoke(() =>
 			{
 				Models.Clear();
@@ -121,21 +127,40 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 	public async Task SendInteractiveChat()
 	{
+		IsLoading = true;
+		Chat? chat = null;
 		var ollama = _apiClient;
-		ollama.SelectedModel = SelectedModel;
-
-		var chat = ollama.Chat(stream =>
+		
+		try
 		{
-			if (stream != null)
+			ollama.SelectedModel = SelectedModel;
+
+			chat = ollama.Chat(stream =>
 			{
-				ApiResponse += stream.Message?.Content;
-			}
-		});
+				Application.Current.Dispatcher.InvokeAsync(() =>
+				{
+					if (stream != null)
+					{
+						ApiResponse += stream.Message?.Content;
+					}
+				});
+			});
 
-		if (!string.IsNullOrEmpty(Prompt))
+			if (!string.IsNullOrEmpty(Prompt))
+			{
+				await chat.Send(Prompt);
+				Prompt = string.Empty;
+			}
+
+		}
+		catch (Exception ex)
 		{
-			await chat.Send(Prompt);
-			Prompt = string.Empty;
+			Log.Error($"There was an error processing your prompt: {ex.Message}");
+			MessageBox.Show($"There was an error processing your prompt: {ex.Message}", "Processing Error Prompt", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+		finally
+		{
+			IsLoading = false;
 		}
 	}
 
