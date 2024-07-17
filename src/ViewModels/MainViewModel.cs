@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Reactive;
 using System.Text.Json;
 using System.Windows;
@@ -10,6 +9,7 @@ using OllamaSharp.Models;
 
 using ReactiveUI;
 using Serilog;
+
 
 namespace OllamaClient.ViewModels;
 
@@ -128,39 +128,44 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 	public async Task SendInteractiveChat()
 	{
 		IsLoading = true;
-		Chat? chat = null;
-		var ollama = _apiClient;
-		
+
 		try
 		{
-			ollama.SelectedModel = SelectedModel;
-
-			chat = ollama.Chat(stream =>
+			await Task.Run(async () =>
 			{
-				Application.Current.Dispatcher.InvokeAsync(() =>
+				Chat? chat = null;
+				var ollama = _apiClient;
+
+				ollama.SelectedModel = SelectedModel;
+				ApiResponse = string.Empty;
+
+
+				chat = ollama.Chat(stream =>
 				{
 					if (stream != null)
 					{
-						ApiResponse += stream.Message?.Content;
+						Application.Current.Dispatcher.Invoke(() =>
+						{
+							IsLoading = false;
+							ApiResponse += stream.Message?.Content;
+						});
 					}
 				});
+
+				if (!string.IsNullOrEmpty(Prompt))
+				{
+					await chat.Send(Prompt);
+					Prompt = string.Empty;
+				}
 			});
-
-			if (!string.IsNullOrEmpty(Prompt))
-			{
-				await chat.Send(Prompt);
-				Prompt = string.Empty;
-			}
-
 		}
 		catch (Exception ex)
 		{
 			Log.Error($"There was an error processing your prompt: {ex.Message}");
-			MessageBox.Show($"There was an error processing your prompt: {ex.Message}", "Processing Error Prompt", MessageBoxButton.OK, MessageBoxImage.Error);
-		}
-		finally
-		{
-			IsLoading = false;
+			Application.Current.Dispatcher.Invoke(() =>
+			{
+				MessageBox.Show($"There was an error processing your prompt: {ex.Message}", "Processing Error Prompt", MessageBoxButton.OK, MessageBoxImage.Error);
+			});
 		}
 	}
 

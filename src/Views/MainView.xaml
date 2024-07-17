@@ -15,9 +15,8 @@
 	d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
 	                                 IsDesignTimeCreatable=False}"
 	Background="{ui:ThemeResource ApplicationBackgroundBrush}"
-	ExtendsContentIntoTitleBar="True"
+	
 	SizeToContent="Height"
-	WindowBackdropType="Mica"
 	WindowCornerPreference="Round"
 	WindowStartupLocation="CenterScreen"
 	mc:Ignorable="d">
