@@ -7,4 +7,6 @@ public interface ISettingsService
     void Save();
     bool IsHealthy();
 
+    string GetVersionNumber();
+
 }

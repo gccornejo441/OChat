@@ -24,6 +24,7 @@ public static class GenericHost
 		.ConfigureServices((context, services) =>
 		{
 			services.AddHostedService<AppBackgroundService>();
+			services.AddSingleton<StatusBarViewModel>();
 			services.AddSingleton<IModalViewModel, ModalViewModel>();
 			services.AddSingleton<ISettingsService, SettingsService>();
 			services.AddSingleton<ILoggerService, LoggerService>();

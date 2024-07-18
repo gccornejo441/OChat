@@ -8,6 +8,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 	xmlns:vm="clr-namespace:OllamaClient.ViewModels"
+	xmlns:view="clr-namespace:OllamaClient.Controls"
 	Title="{Binding Title, Mode=OneWay}"
 	MinWidth="700"
 	MinHeight="200"
@@ -15,7 +16,6 @@
 	d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
 	                                 IsDesignTimeCreatable=False}"
 	Background="{ui:ThemeResource ApplicationBackgroundBrush}"
-	
 	SizeToContent="Height"
 	WindowCornerPreference="Round"
 	WindowStartupLocation="CenterScreen"
@@ -34,7 +34,6 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-
 
 		<Grid
 			Grid.Row="0"
@@ -133,5 +132,7 @@
 			TextWrapping="Wrap"
 			Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}, Mode=TwoWay}" />
 
+		<view:StatusBarView Grid.Row="4" Margin="0,0,0,0" />
 	</Grid>
+
 </ui:FluentWindow>

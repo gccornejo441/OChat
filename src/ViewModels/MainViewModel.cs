@@ -92,7 +92,6 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		GetModelsCommand = ReactiveCommand.CreateFromTask(GetModels);
 		ShowModelInfoCommand = ReactiveCommand.CreateFromTask(ShowModelInfo);
 		SendPromptCommand = ReactiveCommand.CreateFromTask(SendInteractiveChat);
-
 	}
 
 	#endregion

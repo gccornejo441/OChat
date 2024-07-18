@@ -7,10 +7,11 @@
     <UseWPF>true</UseWPF>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ollama.png</PackageIcon>
-    <FileVersion>1.0.14</FileVersion>
+    <FileVersion>1.0.15</FileVersion>
     <StartupObject>OllamaClient.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon" Version="10.1.0" />
     <PackageReference Include="Microsoft.Build.Framework" Version="17.10.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
