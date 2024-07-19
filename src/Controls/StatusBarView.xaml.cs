@@ -7,14 +7,9 @@ namespace OllamaClient.Controls;
 /// </summary>
 public partial class StatusBarView : UserControl
 {
-	public StatusBarView(StatusBarViewModel statusBarViewModel)
+	public StatusBarView()
 	{
 		InitializeComponent();
-		DataContext = statusBarViewModel;
 	}
 
-	//public StatusBarView(StatusBarViewModel statusBarViewModel) : this()
-	//{
-	//	DataContext = statusBarViewModel;
-	//}
 }

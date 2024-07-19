@@ -132,7 +132,7 @@
 			TextWrapping="Wrap"
 			Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}, Mode=TwoWay}" />
 
-		<view:StatusBarView Grid.Row="4" Margin="0,0,0,0" />
+		<view:StatusBarView x:Name="statusBarUserControl" Grid.Row="4" Margin="0,0,0,0"  DataContext="{Binding StatusBarViewModel}" />
 	</Grid>
 
 </ui:FluentWindow>

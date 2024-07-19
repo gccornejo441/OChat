@@ -12,6 +12,8 @@ public class StatusBarViewModel : ReactiveObject
 	{
 		_settingService = settingsService;
 		CurrentProject = "Ollama Client";
+
+
 	}
 
 	#region Properties
@@ -35,7 +37,7 @@ public class StatusBarViewModel : ReactiveObject
 
 	public Brush BarColor
 	{
-		get => BarColor;
+		get => _barColor;
 		set => this.RaiseAndSetIfChanged(ref _barColor, value);
 	}
 

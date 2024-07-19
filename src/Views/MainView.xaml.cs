@@ -9,10 +9,12 @@ namespace OllamaClient;
 /// </summary>
 public partial class MainView : Wpf.Ui.Controls.FluentWindow
 {
-	public MainView(IMainViewModel mainViewModel)
+	public MainView(IMainViewModel mainViewModel, StatusBarViewModel statusBarViewModel)
 	{
 		InitializeComponent();
 
 		DataContext = mainViewModel;
+		this.statusBarUserControl.DataContext = statusBarViewModel;
+
 	}
 }
