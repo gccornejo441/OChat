@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OllamaClient.Services;
 using OllamaClient.Services.Implementations;
 using OllamaClient.Services.Interfaces;
 using OllamaClient.ViewModels;
@@ -25,6 +26,7 @@ public static class GenericHost
 		{
 			services.AddHostedService<AppBackgroundService>();
 			services.AddSingleton<StatusBarViewModel>();
+			services.AddSingleton<IProgressService<double>, ProgressService<double>>();
 			services.AddSingleton<IModalViewModel, ModalViewModel>();
 			services.AddSingleton<ISettingsService, SettingsService>();
 			services.AddSingleton<ILoggerService, LoggerService>();

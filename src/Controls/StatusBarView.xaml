@@ -10,8 +10,12 @@
 	xmlns:vm="clr-namespace:OllamaClient.ViewModels"
 	d:DataContext="{d:DesignInstance Type=vm:StatusBarViewModel,
 	                                 IsDesignTimeCreatable=False}"
-    d:DesignWidth="800"
+	d:DesignWidth="800"
 	mc:Ignorable="d">
+	<UserControl.Resources>
+		<Color x:Key="OChatYellowColor">#FFEA0A</Color>
+		<SolidColorBrush x:Key="OChatYellow" Color="{StaticResource OChatYellowColor}"/>
+	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="1" />
@@ -29,7 +33,9 @@
 					Width="200"
 					Height="16"
 					Margin="6,0,0,2"
-					IsIndeterminate="True" />
+					IsIndeterminate="{Binding IsIndeterminate}"
+					Foreground="{StaticResource OChatYellow}"
+					Value="{Binding Progress}" />
 			</Fluent:StatusBarItem>
 
 			<Fluent:StatusBarItem
