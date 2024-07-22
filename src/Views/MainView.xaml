@@ -27,6 +27,7 @@
 	</ui:FluentWindow.Resources>
 
 	<StackPanel>
+		<ui:TitleBar Height="30" />
 		<Grid Margin="20">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -117,24 +118,54 @@
 				</Grid>
 			</Grid>
 
-			<Button
-				Name="ShowModelInfo"
-				Grid.Row="2"
-				Width="200"
-				Margin="0,5,0,5"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Top"
-				Command="{Binding ShowModalCommand}"
-				Content="Show Model Info" />
-
-			<ui:ProgressRing
+			<Grid
 				Grid.Row="3"
+				Margin="0,10,0,10"
+				HorizontalAlignment="Center">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+
+				<Button
+					Name="TriggerStatusBarBtn"
+					Grid.Column="0"
+					Width="200"
+					Margin="5"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Command="{Binding ShowModalCommand}"
+					Content="Trigger Status Bar" />
+
+				<Button
+					Name="TriggerProgressbarBtn"
+					Grid.Column="1"
+					Width="200"
+					Margin="5"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Command="{Binding TriggerProgressbarCommand}"
+					Content="Trigger Progressbar" />
+
+				<Button
+					Name="DisconnectEndpointTestBtn"
+					Grid.Column="2"
+					Width="200"
+					Margin="5"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Command="{Binding DisconnectEndpointTestCommand}"
+					Content="Disconnect Endpoint Test" />
+			</Grid>
+			<ui:ProgressRing
+				Grid.Row="2"
 				IsIndeterminate="True"
 				Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisiblityConverter}, Mode=TwoWay}" />
 
 			<TextBox
 				Name="ApiResponseTB"
-				Grid.Row="3"
+				Grid.Row="2"
 				Width="660"
 				Height="200"
 				AcceptsReturn="True"

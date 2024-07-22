@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ollama.png</PackageIcon>
-    <FileVersion>1.0.18</FileVersion>
+    <FileVersion>1.0.19</FileVersion>
     <StartupObject>OllamaClient.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
