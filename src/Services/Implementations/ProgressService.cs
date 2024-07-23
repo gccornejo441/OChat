@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using OllamaClient.Services.Interfaces;
+
 using ReactiveUI;
 
 namespace OllamaClient.Services;

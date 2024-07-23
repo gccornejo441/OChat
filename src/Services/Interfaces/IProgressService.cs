@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace OllamaClient.Services.Interfaces;
+namespace OllamaClient.Services;
 
 public enum AppStatus
 {

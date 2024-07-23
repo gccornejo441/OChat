@@ -1,15 +1,13 @@
 ﻿using System.Reactive.Linq;
+
 using Moq;
-using OllamaClient.Services.Interfaces;
+
+using OllamaClient.Commons;
+using OllamaClient.Services;
 using OllamaClient.ViewModels;
+
 using OllamaSharp;
 using OllamaSharp.Models;
-using Xunit;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Reactive;
 
 namespace OllamaClient.Test.ViewModels
 {
@@ -17,13 +15,15 @@ namespace OllamaClient.Test.ViewModels
 	{
 		private readonly Mock<IOllamaApiClient> mockApiClient;
 		private readonly Mock<IModalService> mockObservableModel;
+		private readonly Mock<StatusBarCommands> mockStatusBarCommands;
 		private readonly MainViewModel viewModel;
 
 		public MainViewModelTests()
 		{
 			mockApiClient = new Mock<IOllamaApiClient>();
 			mockObservableModel = new Mock<IModalService>();
-			viewModel = new MainViewModel(mockApiClient.Object,mockObservableModel.Object);
+			mockStatusBarCommands = new Mock<StatusBarCommands>();
+			viewModel = new MainViewModel(mockApiClient.Object,mockObservableModel.Object,mockStatusBarCommands.Object);
 		}
 
 		[Fact]
@@ -31,7 +31,7 @@ namespace OllamaClient.Test.ViewModels
 		{
 			try
 			{
-				var mockModels = new List<Model> { new Model { Name = "Model1" },new Model { Name = "Model2" } };
+				var mockModels = new List<Model> { new() { Name = "Model1" },new() { Name = "Model2" } };
 				mockApiClient.Setup(api => api.ListLocalModels(CancellationToken.None)).ReturnsAsync(mockModels);
 
 				await viewModel.GetModelsCommand.Execute();

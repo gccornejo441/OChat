@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace OllamaClient.Services.Interfaces;
+namespace OllamaClient.Services;
 
 public interface ISettingsService 
 {

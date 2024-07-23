@@ -1,8 +1,7 @@
 ﻿using Microsoft.Build.Framework;
 using Microsoft.Extensions.Logging;
-using OllamaClient.Services.Interfaces;
 
-namespace OllamaClient.Services.Implementations;
+namespace OllamaClient.Services;
 
 public enum LogType
 {

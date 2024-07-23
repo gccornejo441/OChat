@@ -14,7 +14,7 @@
 	mc:Ignorable="d">
 	<UserControl.Resources>
 		<Color x:Key="OChatYellowColor">#FFEA0A</Color>
-		<SolidColorBrush x:Key="OChatYellow" Color="{StaticResource OChatYellowColor}"/>
+		<SolidColorBrush x:Key="OChatYellow" Color="{StaticResource OChatYellowColor}" />
 	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -33,9 +33,16 @@
 					Width="200"
 					Height="16"
 					Margin="6,0,0,2"
-					IsIndeterminate="{Binding IsIndeterminate}"
 					Foreground="{StaticResource OChatYellow}"
+					IsIndeterminate="{Binding IsIndeterminate}"
 					Value="{Binding Progress}" />
+			</Fluent:StatusBarItem>
+
+			<Fluent:StatusBarItem HorizontalAlignment="Left">
+				<TextBlock
+					Margin="6,0,0,4"
+					Foreground="White"
+					Text="{Binding EndpointStatus}" />
 			</Fluent:StatusBarItem>
 
 			<Fluent:StatusBarItem

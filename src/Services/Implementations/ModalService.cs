@@ -1,9 +1,8 @@
 using OllamaClient.Modals;
-using OllamaClient.Services.Interfaces;
 using OllamaClient.ViewModels;
 using OllamaClient.Views;
 
-namespace OllamaClient.Services.Implementations;
+namespace OllamaClient.Services;
 public class ModalService : IModalService
 {
     public void ShowModelInfoModel(string title, string message)

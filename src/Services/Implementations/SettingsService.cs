@@ -1,9 +1,6 @@
-﻿
-using System.Windows.Forms;
-using Microsoft.Extensions.Configuration;
-using OllamaClient.Services.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
 
-namespace OllamaClient.Services.Implementations;
+namespace OllamaClient.Services;
 public class SettingsService : ISettingsService
 {
 	private bool isLoaded;

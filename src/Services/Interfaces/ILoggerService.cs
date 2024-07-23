@@ -1,6 +1,6 @@
 ﻿using Microsoft.Build.Framework;
 
-namespace OllamaClient.Services.Interfaces;
+namespace OllamaClient.Services;
 public interface ILoggerService
 {
 	public void Info(string message);

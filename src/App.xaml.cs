@@ -3,7 +3,7 @@ using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OllamaClient.Services.Interfaces;
+using OllamaClient.Services;
 using Serilog;
 
 namespace OllamaClient;

@@ -2,16 +2,15 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Text.Json;
 using System.Windows;
-using System.Windows.Threading;
+using OllamaClient.Commons;
 using OllamaClient.Services;
-using OllamaClient.Services.Interfaces;
+
 
 using OllamaSharp;
 using OllamaSharp.Models;
 
 using ReactiveUI;
 using Serilog;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace OllamaClient.ViewModels;
@@ -82,17 +81,16 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 	private readonly IOllamaApiClient _apiClient;
 	private readonly IModalService _modalService;
-	private readonly IProgressService<double> _progressService;
-
-	public ReactiveCommand<Unit, Unit> ShowModalCommand { get; }
 	public ReactiveCommand<Unit, Unit> GetModelsCommand { get; }
 	public ReactiveCommand<Unit, Unit> ShowModelInfoCommand { get; }
 	public ReactiveCommand<Unit, Unit> SendPromptCommand { get; }
-	public MainViewModel(IOllamaApiClient apiClient, IModalService modalService, IProgressService<double> progressService)
+	public ReactiveCommand<Unit, Unit> TriggerProgressBarCommand { get; }
+	public ReactiveCommand<Unit, Unit> DisconnectEndpointTestCommand { get; }
+	public ReactiveCommand<Unit, Unit> TriggerStatusBarCommand { get; }
+	public MainViewModel(IOllamaApiClient apiClient, IModalService modalService, StatusBarCommands barCommands)
 	{
 		_apiClient = apiClient;
 		_modalService = modalService;
-		_progressService = progressService;
 
 		Title = "Ollama Client";
 
@@ -100,29 +98,19 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 		Task.Run(async () => await GetModels()).ConfigureAwait(false);
 
-		ShowModalCommand = ReactiveCommand.Create(SetStatusReady);
 		GetModelsCommand = ReactiveCommand.CreateFromTask(GetModels);
 		ShowModelInfoCommand = ReactiveCommand.CreateFromTask(ShowModelInfo);
 		SendPromptCommand = ReactiveCommand.CreateFromTask(SendInteractiveChat);
+
+		TriggerProgressBarCommand = ReactiveCommand.Create(barCommands.SetStatusReady);
+
+		DisconnectEndpointTestCommand = ReactiveCommand.Create(barCommands.DisconnectEndpoint);
+
+		TriggerStatusBarCommand = ReactiveCommand.Create(barCommands.SetStatusReady);
 	}
-
-
 
 	#endregion
 	#region Private Methods
-
-	public void SetStatusReady()
-	{
-		_progressService.Report(0.5);
-
-		_progressService.Completed();
-
-	}
-
-	private void ShowModal()
-	{
-		_modalService.ShowModelInfoModel("API Response", "Enter URI");
-	}
 
 	private async Task GetModels()
 	{

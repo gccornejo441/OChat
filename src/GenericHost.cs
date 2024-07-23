@@ -3,9 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OllamaClient.Commons;
 using OllamaClient.Services;
-using OllamaClient.Services.Implementations;
-using OllamaClient.Services.Interfaces;
 using OllamaClient.ViewModels;
 using OllamaSharp;
 using OllamaSharp.Models.Chat;
@@ -24,8 +23,22 @@ public static class GenericHost
 		})
 		.ConfigureServices((context, services) =>
 		{
+			// Register configuration
+			services.AddSingleton<IConfiguration>(context.Configuration);
+
+			// Add hosted service
 			services.AddHostedService<AppBackgroundService>();
+
+			// Add view models and commands
 			services.AddSingleton<StatusBarViewModel>();
+			services.AddSingleton<StatusBarCommands>();
+
+			// Register the URL configuration
+			string apiBaseUrl = context.Configuration.GetValue<string>("JSONPlaceholderSetting:ApiBaseUrl");
+			services.AddSingleton(new EndpointService(apiBaseUrl));
+
+			// Add services with implementations
+			services.AddSingleton<IEndpointService<EndpointStatus>>(provider => provider.GetRequiredService<EndpointService>());
 			services.AddSingleton<IProgressService<double>, ProgressService<double>>();
 			services.AddSingleton<IModalViewModel, ModalViewModel>();
 			services.AddSingleton<ISettingsService, SettingsService>();
@@ -33,6 +46,8 @@ public static class GenericHost
 			services.AddSingleton<IMainViewModel, MainViewModel>();
 			services.AddSingleton<MainView>();
 			services.AddSingleton<IModalService, ModalService>();
+
+			// Configure HttpClient
 			services.AddHttpClient<IOllamaApiClient, OllamaApiClient>(client =>
 			{
 				client.BaseAddress = new Uri("http://localhost:11434");
