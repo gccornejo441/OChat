@@ -10,10 +10,10 @@ public enum EndpointStatus
 /// <summary>
 /// Represents a service for managing Ollama endpoints.
 /// </summary>
-public interface IEndpointService<T> : IProgress<T>
+public interface IEndpointService<T> : IProgress<T>, IObservable<T>
 {
-	EndpointStatus Status { get; }
-	bool IsIndeterminate { get; }
+	public EndpointStatus Status { get; }
+	public bool IsIndeterminate { get; }
 
 	/// <summary>
 	/// Occurs when the status of the endpoint changes.

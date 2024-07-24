@@ -1,25 +1,28 @@
 ﻿
 using System.Net.Http;
+using System.Reactive.Subjects;
 using ReactiveUI;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace OllamaClient.Services;
-    public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
+public class EndpointService<T> : ReactiveObject, IEndpointService<T>
 {
 	private readonly HttpClient _client;
 	private readonly string _url;
 	private EndpointStatus _status;
 	private readonly CancellationTokenSource _cancellationTokenSource;
 	private bool _isIndeterminate;
-	public event EventHandler<EndpointStatus> StatusChanged;
+	public event EventHandler<T> StatusChanged;
 
 	public EndpointService(string url)
 	{
 		_client = new HttpClient();
 		_url = url;
 		_cancellationTokenSource = new CancellationTokenSource();
+
 		Task.Run(() => MonitorEndpoint(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
 	}
+
+	public EndpointService() { }
 
 	public bool IsIndeterminate
 	{
@@ -65,13 +68,20 @@ namespace OllamaClient.Services;
 	/// </summary>
 	/// <param name="value"></param>
 	/// </summary>
-	public void Report(EndpointStatus status)
+	public void Report(T status)
 	{
 		if (status != null)
 		{
-			Status = status == EndpointStatus.Available ? EndpointStatus.Available : EndpointStatus.Unavailable;
+			if (status is EndpointStatus endpointStatus)
+			{
+				Status = endpointStatus == EndpointStatus.Available ? EndpointStatus.Available : EndpointStatus.Unavailable;
+			}
+			//else
+			//{
+			//	throw new ArgumentException("The value must be of type EndpointStatus.", nameof(value));
+			//})
 		}
-		
+
 		StatusChanged?.Invoke(this, status);
 	}
 
@@ -84,4 +94,8 @@ namespace OllamaClient.Services;
 		}
 	}
 
+	public IDisposable Subscribe(IObserver<T> observer)
+	{
+		throw new NotImplementedException();
+	}
 }

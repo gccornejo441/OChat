@@ -30,6 +30,8 @@ public class StatusBarCommands : ReactiveObject
 
 	public void SetStatusReady()
 	{
+
+
 		//_progressService.Report(0.5);
 
 		//_progressService.Completed();

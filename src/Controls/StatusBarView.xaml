@@ -23,8 +23,11 @@
 		</Grid.RowDefinitions>
 		<Fluent:StatusBar Grid.Row="1" Background="{Binding BarColor}">
 
-			<Fluent:StatusBarItem Title="Status" HorizontalAlignment="Left">
-				<TextBlock Margin="6,0,0,4" Text="{Binding Status}" />
+			<Fluent:StatusBarItem Title="Endpoint Status" HorizontalAlignment="Left">
+				<TextBlock
+					Margin="6,0,0,4"
+					Foreground="White"
+					Text="{Binding EndpointStatus}" />
 			</Fluent:StatusBarItem>
 
 			<Fluent:StatusBarItem HorizontalAlignment="Left">
@@ -36,13 +39,6 @@
 					Foreground="{StaticResource OChatYellow}"
 					IsIndeterminate="{Binding IsIndeterminate}"
 					Value="{Binding Progress}" />
-			</Fluent:StatusBarItem>
-
-			<Fluent:StatusBarItem HorizontalAlignment="Left">
-				<TextBlock
-					Margin="6,0,0,4"
-					Foreground="White"
-					Text="{Binding EndpointStatus}" />
 			</Fluent:StatusBarItem>
 
 			<Fluent:StatusBarItem
