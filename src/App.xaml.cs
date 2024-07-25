@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +37,7 @@ public partial class App : Application
 				.CreateLogger();
 
 			Log.Information("WELCOME TO OLLAMA CLIENT!!!!!!!!!!!!!!!!!");
+
 		}
 		catch (HostAbortedException ex)
 		{
