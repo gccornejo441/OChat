@@ -34,7 +34,7 @@ public static class GenericHost
 			services.AddSingleton<StatusBarCommands>();
 
 			// Register the URL configuration
-			string apiBaseUrl = context.Configuration.GetValue<string>("JSONPlaceholderSetting:ApiBaseUrl");
+			string apiBaseUrl = context.Configuration.GetValue<string>("OllamaSettings:ApiBaseUrl");
 			services.AddSingleton(new EndpointService(apiBaseUrl));
 
 			// Add services with implementations
