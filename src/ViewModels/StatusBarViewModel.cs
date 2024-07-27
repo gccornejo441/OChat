@@ -10,13 +10,10 @@ namespace OllamaClient.ViewModels
 		private readonly IEndpointService<EndpointStatus> _endpointService;
 		private EndpointStatus _endpointStatus;
 
-		public StatusBarViewModel(
-			ISettingsService settingsService,
-			IEndpointService<EndpointStatus> endpointService)
+		public StatusBarViewModel(IEndpointService<EndpointStatus> endpointService, ISettingsService settingsService)
 		{
 			_settingsService = settingsService;
 			_endpointService = endpointService;
-
 			_currentProject = "O Chat";
 
 			this.WhenAnyValue(x => x._endpointService.Status)

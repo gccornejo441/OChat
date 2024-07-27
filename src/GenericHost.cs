@@ -7,8 +7,6 @@ using OllamaClient.Commons;
 using OllamaClient.Services;
 using OllamaClient.ViewModels;
 using OllamaSharp;
-using OllamaSharp.Models.Chat;
-using OllamaSharp.Streamer;
 
 namespace OllamaClient;
 public static class GenericHost
@@ -35,7 +33,10 @@ public static class GenericHost
 
 			// Register the URL configuration
 			string apiBaseUrl = context.Configuration.GetValue<string>("OllamaSettings:ApiBaseUrl");
+			
+
 			services.AddSingleton(new EndpointService(apiBaseUrl));
+			
 
 			// Add services with implementations
 			services.AddSingleton<IEndpointService<EndpointStatus>>(provider => provider.GetRequiredService<EndpointService>());

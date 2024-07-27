@@ -65,6 +65,7 @@
 					Margin="5,5,5,5"
 					ItemsSource="{Binding Models}"
 					SelectedItem="{Binding SelectedModel}" />
+				
 
 				<Label
 					Name="ModelStatusLbl"

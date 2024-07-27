@@ -11,14 +11,13 @@ public class StatusBarCommands : ReactiveObject
 	private IConfiguration _configuration;
 
 	public StatusBarCommands(IProgressService<double> progressService, 
-		IConfiguration configuration, 
-		IEndpointService<EndpointStatus> endpointService)
+		IConfiguration configuration)
 	{
 		_progressService = progressService;
 		_configuration = configuration;
 
 		var url = _configuration.GetValue<string>("JSONPlaceholderSetting:ApiBaseUrl");
-	   _endpointService = endpointService;
+	   
 
 	}																	   
 
@@ -40,7 +39,6 @@ public class StatusBarCommands : ReactiveObject
 
 	public void DisconnectEndpoint()
 	{
-		_endpointService.Report(EndpointStatus.Unavailable);
 		//_progressService.Report(0.0);
 	}
 
