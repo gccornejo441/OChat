@@ -32,12 +32,10 @@ public static class GenericHost
 			services.AddSingleton<StatusBarCommands>();
 
 			// Register the URL configuration
-			string apiBaseUrl = context.Configuration.GetValue<string>("OllamaSettings:ApiBaseUrl");
+			string apiBaseUrl = context.Configuration.GetValue<string>("OllamaSettings:ApiBaseUri");
 			
-
 			services.AddSingleton(new EndpointService(apiBaseUrl));
 			
-
 			// Add services with implementations
 			services.AddSingleton<IEndpointService<EndpointStatus>>(provider => provider.GetRequiredService<EndpointService>());
 			services.AddSingleton<IProgressService<double>, ProgressService<double>>();
