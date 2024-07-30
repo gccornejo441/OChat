@@ -35,8 +35,10 @@ public static class GenericHost
 			string apiBaseUrl = context.Configuration.GetValue<string>("OllamaSettings:ApiBaseUri");
 			
 			services.AddSingleton(new EndpointService(apiBaseUrl));
-			
+
 			// Add services with implementations
+			services.AddSingleton<SystemTrayService>();
+
 			services.AddSingleton<IEndpointService<EndpointStatus>>(provider => provider.GetRequiredService<EndpointService>());
 			services.AddSingleton<IProgressService<double>, ProgressService<double>>();
 			services.AddSingleton<IModalViewModel, ModalViewModel>();
@@ -44,6 +46,8 @@ public static class GenericHost
 			services.AddSingleton<ILoggerService, LoggerService>();
 			services.AddSingleton<IMainViewModel, MainViewModel>();
 			services.AddSingleton<MainView>();
+			services.AddSingleton<Func<MainView>>(sp => () => sp.GetRequiredService<MainView>());
+
 			services.AddSingleton<IModalService, ModalService>();
 
 			// Configure HttpClient
