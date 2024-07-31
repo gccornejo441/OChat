@@ -6,14 +6,11 @@ using ReactiveUI;
 namespace OllamaClient.Commons;
 public class StatusBarCommands : ReactiveObject
 {
-	private readonly IProgressService<double> _progressService;
 	private IEndpointService<EndpointStatus> _endpointService;
 	private IConfiguration _configuration;
 
-	public StatusBarCommands(IProgressService<double> progressService, 
-		IConfiguration configuration, IEndpointService<EndpointStatus> endpointService)
+	public StatusBarCommands(IConfiguration configuration, IEndpointService<EndpointStatus> endpointService)
 	{
-		_progressService = progressService;
 		_configuration = configuration;
 		_endpointService = endpointService;
 
