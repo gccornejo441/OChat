@@ -1,20 +1,14 @@
-﻿using System.Reactive;
-using Microsoft.Extensions.Configuration;
-using OllamaClient.Services;
+﻿using OllamaClient.Services;
 using ReactiveUI;
 
 namespace OllamaClient.Commons;
 public class StatusBarCommands : ReactiveObject
 {
-	private IEndpointService<EndpointStatus> _endpointService;
-	private IConfiguration _configuration;
-
-	public StatusBarCommands(IConfiguration configuration, IEndpointService<EndpointStatus> endpointService)
+	private readonly IEndpointService<EndpointStatus> _endpointService;
+	public StatusBarCommands(IEndpointService<EndpointStatus> endpointService)
 	{
-		_configuration = configuration;
 		_endpointService = endpointService;
-
-	}																	   
+	}
 
 	public void TriggerProgressBar()
 	{
@@ -23,16 +17,11 @@ public class StatusBarCommands : ReactiveObject
 
 	public void SetStatusReady()
 	{
-
-		//_progressService.Report(0.5);
-
-		//_progressService.Completed();
-
+		_endpointService.Report(EndpointStatus.Available);
 	}
 
 	public void DisconnectEndpoint()
 	{
-		//_progressService.Report(0.0);
 		_endpointService.Report(EndpointStatus.Unavailable);
 	}
 
