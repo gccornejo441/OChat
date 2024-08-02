@@ -125,6 +125,11 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 				{
 					Models.Add(model.Name);
 				}
+
+				if (Models.Any())
+				{
+					SelectedModel = Models[0];
+				}
 			});
 
 		}
