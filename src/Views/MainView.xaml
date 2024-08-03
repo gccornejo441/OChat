@@ -60,7 +60,7 @@
 				<ComboBox
 					Name="ModelsCB"
 					Grid.Column="1"
-					Width="120"
+					Width="130"
 					Height="36"
 					Margin="5,5,5,5"
 					ItemsSource="{Binding Models}"

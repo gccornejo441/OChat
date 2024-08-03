@@ -29,4 +29,5 @@ public partial class MainView : Wpf.Ui.Controls.FluentWindow
 		_systemTrayService.Dispose();
 		base.OnClosed(e);
 	}
+
 }
