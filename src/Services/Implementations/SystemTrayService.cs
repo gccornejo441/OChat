@@ -22,35 +22,20 @@ public class SystemTrayService : IDisposable
 		{
 			Icon = new Icon(iconPath),
 			Visible = true,
-			Text = "Your Application Name"
+			Text = "O Chat"
 		};
 
 		var contextMenu = new ContextMenuStrip();
-		var showMenuItem = new ToolStripMenuItem("Show", null, OnShow);
 		var exitMenuItem = new ToolStripMenuItem("Exit", null, OnExit);
-		contextMenu.Items.Add(showMenuItem);
 		contextMenu.Items.Add(exitMenuItem);
 		notifyIcon.ContextMenuStrip = contextMenu;
 
-		notifyIcon.DoubleClick += (sender, args) => ShowWindow();
-	}
-
-	private void OnShow(object sender, EventArgs e)
-	{
-		ShowWindow();
 	}
 
 	private void OnExit(object sender, EventArgs e)
 	{
 		notifyIcon.Visible = false;
 		System.Windows.Application.Current.Shutdown();
-	}
-
-	private void ShowWindow()
-	{
-		var mainView = _mainViewFactory();
-		mainView.Show();
-		mainView.WindowState = WindowState.Normal;
 	}
 
 	public void HandleWindowStateChange(object sender, EventArgs e)
