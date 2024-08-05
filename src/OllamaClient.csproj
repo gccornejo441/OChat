@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ollama.png</PackageIcon>
-    <FileVersion>1.0.32</FileVersion>
+    <FileVersion>1.0.33</FileVersion>
     <StartupObject>OllamaClient.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
@@ -31,7 +31,6 @@
     <PackageReference Include="wpf-ui" Version="3.0.4" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Images\" />
     <Folder Include="Core\" />
     <Folder Include="Resources\Styles\" />
   </ItemGroup>
@@ -57,6 +56,7 @@
   <ItemGroup>
     <None Remove=".editorconfig" />
     <None Remove="appsettings.json" />
+    <None Remove="Assets\Images\ochat.ico" />
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\gabriel.cornejo\source\repos\OChat\src\.editorconfig" />
@@ -65,6 +65,9 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\ochat.ico" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="appsettings.json">

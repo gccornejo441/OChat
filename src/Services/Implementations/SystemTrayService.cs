@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -16,20 +18,27 @@ public class SystemTrayService : IDisposable
 
 	private void InitializeNotifyIcon()
 	{
-		string iconPath = @"C:\Users\gabriel.cornejo\source\repos\OChat\src\Assets\Images\ochat.ico";
-
-		notifyIcon = new NotifyIcon
+		string resourceName = "OllamaClient.Assets.Images.ochat.ico";
+		var assembly = Assembly.GetExecutingAssembly().GetManifestResourceNames().ToList();
+		using (Stream iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
 		{
-			Icon = new Icon(iconPath),
-			Visible = true,
-			Text = "O Chat"
-		};
+			if (iconStream == null)
+			{
+				throw new ArgumentException($"Resource '{resourceName}' not found.");
+			}
+
+			notifyIcon = new NotifyIcon
+			{
+				Icon = new Icon(iconStream),
+				Visible = true,
+				Text = "O Chat"
+			};
+		}
 
 		var contextMenu = new ContextMenuStrip();
 		var exitMenuItem = new ToolStripMenuItem("Exit", null, OnExit);
 		contextMenu.Items.Add(exitMenuItem);
 		notifyIcon.ContextMenuStrip = contextMenu;
-
 	}
 
 	private void OnExit(object sender, EventArgs e)
