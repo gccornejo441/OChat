@@ -19,7 +19,6 @@ public class SystemTrayService : IDisposable
 	private void InitializeNotifyIcon()
 	{
 		string resourceName = "OllamaClient.Assets.Images.ochat.ico";
-		var assembly = Assembly.GetExecutingAssembly().GetManifestResourceNames().ToList();
 		using (Stream iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
 		{
 			if (iconStream == null)

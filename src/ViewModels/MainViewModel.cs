@@ -68,13 +68,6 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		get => isLoading;
 		set => this.RaiseAndSetIfChanged(ref isLoading, value);
 	}
-
-	private bool isModelsLoaded = false;
-	public bool IsModelsLoaded
-	{
-		get => isModelsLoaded;
-		set => this.RaiseAndSetIfChanged(ref isModelsLoaded, value);
-	}
 	#endregion
 
 	#region Dependencies/Services
