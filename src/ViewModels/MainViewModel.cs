@@ -79,7 +79,6 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 	public ReactiveCommand<Unit, Unit> SendPromptCommand { get; }
 	public ReactiveCommand<Unit, Unit> TriggerProgressBarCommand { get; }
 	public ReactiveCommand<Unit, Unit> DisconnectEndpointTestCommand { get; }
-	public ReactiveCommand<Unit, Unit> TriggerStatusBarCommand { get; }
 	public MainViewModel(IOllamaApiClient apiClient, IModalService modalService, StatusBarCommands barCommands)
 	{
 		_apiClient = apiClient;
@@ -99,7 +98,6 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 		DisconnectEndpointTestCommand = ReactiveCommand.Create(barCommands.DisconnectEndpoint);
 
-		TriggerStatusBarCommand = ReactiveCommand.Create(barCommands.SetStatusReady);
 	}
 
 	#endregion
