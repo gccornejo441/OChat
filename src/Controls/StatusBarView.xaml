@@ -13,8 +13,8 @@
 	d:DesignWidth="800"
 	mc:Ignorable="d">
 	<UserControl.Resources>
-		<Color x:Key="OChatYellowColor">#FFEA0A</Color>
-		<SolidColorBrush x:Key="OChatYellow" Color="{StaticResource OChatYellowColor}" />
+		<Color x:Key="OChatTealColor">#FF00F6FF</Color>
+		<SolidColorBrush x:Key="OChatTeal" Color="{StaticResource OChatTealColor}" />
 	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -36,7 +36,7 @@
 					Width="200"
 					Height="16"
 					Margin="6,0,0,2"
-					Foreground="{StaticResource OChatYellow}"
+					Foreground="{StaticResource OChatTeal}"
 					IsIndeterminate="{Binding IsIndeterminate}"
 					Value="{Binding Progress}" />
 			</Fluent:StatusBarItem>
