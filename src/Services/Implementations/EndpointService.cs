@@ -1,5 +1,4 @@
-﻿
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Reflection;
 using ReactiveUI;
 
@@ -18,7 +17,7 @@ public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
 		_client = new HttpClient();
 		_url = url;
 		_cancellationTokenSource = new CancellationTokenSource();
-		Task.Run(() => MonitorEndpoint(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
+		Task.Run(() => MonitorEndpoint(_cancellationTokenSource.Token),_cancellationTokenSource.Token);
 
 		var assembly = Assembly.GetEntryAssembly();
 	}
@@ -26,7 +25,7 @@ public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
 	public bool IsIndeterminate
 	{
 		get => _isIndeterminate;
-		set => this.RaiseAndSetIfChanged(ref _isIndeterminate, value);
+		set => this.RaiseAndSetIfChanged(ref _isIndeterminate,value);
 	}
 
 	// When the status property is set 
@@ -37,7 +36,7 @@ public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
 		get => _status;
 		set
 		{
-			this.RaiseAndSetIfChanged(ref _status, value);
+			this.RaiseAndSetIfChanged(ref _status,value);
 		}
 	}
 
@@ -48,7 +47,7 @@ public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
 			var response = _client.GetAsync(_url).Result;
 			if (response.IsSuccessStatusCode)
 			{
-				return EndpointStatus.Available;
+				return EndpointStatus.Ready;
 			}
 			else
 			{
@@ -71,10 +70,10 @@ public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
 	{
 		if (status != null)
 		{
-			Status = status == EndpointStatus.Available ? EndpointStatus.Available : EndpointStatus.Unavailable;
+			Status = status == EndpointStatus.Ready ? EndpointStatus.Ready : EndpointStatus.Unavailable;
 		}
 
-		StatusChanged?.Invoke(this, status);
+		StatusChanged?.Invoke(this,status);
 	}
 
 	private async Task MonitorEndpoint(CancellationToken cancellationToken)
@@ -82,7 +81,7 @@ public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
 		while (!cancellationToken.IsCancellationRequested)
 		{
 			Status = CurrentEndpointState();
-			await Task.Delay(5000, cancellationToken);
+			await Task.Delay(5000,cancellationToken);
 		}
 	}
 

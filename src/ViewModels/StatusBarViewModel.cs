@@ -23,11 +23,11 @@ namespace OllamaClient.ViewModels
 		private void UpdateStatusAndColor(EndpointStatus status)
 		{
 			EndpointStatus = status;
-			Progress = status == EndpointStatus.Available ? 100 : 50;
+			Progress = status == EndpointStatus.Ready ? 100 : 50;
 			BarColor = status switch
 			{
 				EndpointStatus.Unavailable => new BrushConverter().ConvertFromString("#951C2D") as SolidColorBrush ?? Brushes.Black,
-				EndpointStatus.Available => new BrushConverter().ConvertFromString("#275C4C") as SolidColorBrush ?? Brushes.Black,
+				EndpointStatus.Ready => new BrushConverter().ConvertFromString("#275C4C") as SolidColorBrush ?? Brushes.Black,
 				_ => BarColor
 			};
 		}

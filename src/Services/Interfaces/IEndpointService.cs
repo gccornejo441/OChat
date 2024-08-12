@@ -2,7 +2,7 @@
 
 public enum EndpointStatus
 {
-	Available,
+	Ready,
 	Unavailable,
 	Error,
 }

@@ -12,12 +12,12 @@ public class StatusBarCommands : ReactiveObject
 
 	public void TriggerProgressBar()
 	{
-		_endpointService.Report(EndpointStatus.Available);
+		_endpointService.Report(EndpointStatus.Ready);
 	}
 
 	public void SetStatusReady()
 	{
-		_endpointService.Report(EndpointStatus.Available);
+		_endpointService.Report(EndpointStatus.Ready);
 	}
 
 	public void DisconnectEndpoint()

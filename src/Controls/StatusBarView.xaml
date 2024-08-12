@@ -12,10 +12,20 @@
 	                                 IsDesignTimeCreatable=False}"
 	d:DesignWidth="800"
 	mc:Ignorable="d">
+	
 	<UserControl.Resources>
 		<Color x:Key="OChatTealColor">#FF00F6FF</Color>
 		<SolidColorBrush x:Key="OChatTeal" Color="{StaticResource OChatTealColor}" />
+		<Color x:Key="OChatDarkBlueColor">#FF004080</Color>
+		<SolidColorBrush x:Key="OChatDarkBlue" Color="{StaticResource OChatDarkBlueColor}" />
+		<Color x:Key="OChatLightGrayColor">#FFD3D3D3</Color>
+		<SolidColorBrush x:Key="OChatLightGray" Color="{StaticResource OChatLightGrayColor}" />
+		<Color x:Key="OChatOrangeColor">#FFFFA500</Color>
+		<SolidColorBrush x:Key="OChatOrange" Color="{StaticResource OChatOrangeColor}" />
+		<Color x:Key="OChatPurpleColor">#FF800080</Color>
+		<SolidColorBrush x:Key="OChatPurple" Color="{StaticResource OChatPurpleColor}" />
 	</UserControl.Resources>
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="1" />
@@ -36,7 +46,7 @@
 					Width="200"
 					Height="16"
 					Margin="6,0,0,2"
-					Foreground="{StaticResource OChatTeal}"
+					Foreground="{StaticResource OChatOrange}"
 					IsIndeterminate="{Binding IsIndeterminate}"
 					Value="{Binding Progress}" />
 			</Fluent:StatusBarItem>
