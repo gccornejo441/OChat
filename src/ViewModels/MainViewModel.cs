@@ -22,7 +22,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 	private string title;
 	public string Title
-	{
+	{  
 		get => title;
 		set => this.RaiseAndSetIfChanged(ref title, value);
 	}
@@ -68,6 +68,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		get => isLoading;
 		set => this.RaiseAndSetIfChanged(ref isLoading, value);
 	}
+
 	#endregion
 
 	#region Dependencies/Services

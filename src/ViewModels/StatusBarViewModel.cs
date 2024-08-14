@@ -32,29 +32,6 @@ namespace OllamaClient.ViewModels
 			};
 		}
 
-
-		//private void OnProgressChanged(object? sender, double e)
-		//{
-		//	Progress = e * 100;
-		//}
-
-		//private void OnProgressPropertyChanged(object? sender, PropertyChangedEventArgs e)
-		//{
-		//	Application.Current.Dispatcher.BeginInvoke(() =>
-		//	{
-		//		switch (e.PropertyName)
-		//		{
-		//			case nameof(IProgressService<double>.IsIndeterminate):
-		//				IsIndeterminate = _progressService.IsIndeterminate;
-		//				break;
-
-		//			case nameof(IProgressService<double>.Status):
-		//				UpdateStatusAndColor();
-		//				break;
-		//		}
-		//	});
-		//}
-
 		#region Properties
 		public EndpointStatus EndpointStatus
 		{

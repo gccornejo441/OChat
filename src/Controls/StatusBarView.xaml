@@ -12,7 +12,7 @@
 	                                 IsDesignTimeCreatable=False}"
 	d:DesignWidth="800"
 	mc:Ignorable="d">
-	
+
 	<UserControl.Resources>
 		<Color x:Key="OChatTealColor">#FF00F6FF</Color>
 		<SolidColorBrush x:Key="OChatTeal" Color="{StaticResource OChatTealColor}" />
@@ -25,7 +25,7 @@
 		<Color x:Key="OChatPurpleColor">#FF800080</Color>
 		<SolidColorBrush x:Key="OChatPurple" Color="{StaticResource OChatPurpleColor}" />
 	</UserControl.Resources>
-	
+
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="1" />
