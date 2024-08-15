@@ -20,14 +20,10 @@ public class StatusBarCommands : ReactiveObject
 		_endpointService.Report(EndpointStatus.Ready);
 	}
 
-	public void DisconnectEndpoint()
-	{
-		_endpointService.Report(EndpointStatus.Unavailable);
-	}
+	public void StatusUnavailable() => _endpointService.Report(EndpointStatus.Unavailable);
+	
+	public void StatusError() => _endpointService.Report(EndpointStatus.Error);
 
-	public void CheckService()
-	{
-
-	}
+	public void StatusBusy() => _endpointService.Report(EndpointStatus.Busy);
 
 }

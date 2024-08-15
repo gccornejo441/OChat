@@ -5,6 +5,7 @@ public enum EndpointStatus
 	Ready,
 	Unavailable,
 	Error,
+	Busy,
 }
 
 /// <summary>

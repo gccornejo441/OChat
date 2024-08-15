@@ -75,6 +75,8 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 	private readonly IOllamaApiClient _apiClient;
 	private readonly IModalService _modalService;
+	private readonly StatusBarCommands _barCommands;
+
 	public ReactiveCommand<Unit, Unit> GetModelsCommand { get; }
 	public ReactiveCommand<Unit, Unit> ShowModelInfoCommand { get; }
 	public ReactiveCommand<Unit, Unit> SendPromptCommand { get; }
@@ -84,7 +86,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 	{
 		_apiClient = apiClient;
 		_modalService = modalService;
-
+		_barCommands = barCommands;
 		Title = "Ollama Client";
 
 		Models = new ObservableCollection<string>();
@@ -95,9 +97,9 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		ShowModelInfoCommand = ReactiveCommand.CreateFromTask(ShowModelInfo);
 		SendPromptCommand = ReactiveCommand.CreateFromTask(SendInteractiveChat);
 
-		TriggerProgressBarCommand = ReactiveCommand.Create(barCommands.SetStatusReady);
+		TriggerProgressBarCommand = ReactiveCommand.Create(_barCommands.SetStatusReady);
 
-		DisconnectEndpointTestCommand = ReactiveCommand.Create(barCommands.DisconnectEndpoint);
+		DisconnectEndpointTestCommand = ReactiveCommand.Create(_barCommands.StatusUnavailable);
 
 	}
 
@@ -129,8 +131,8 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		{
 			ApiResponse = $"Error fetching models: {ex.Message}";
 		}
-
 	}
+
 
 	public async Task SendInteractiveChat()
 	{
@@ -138,6 +140,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 		try
 		{
+			// TODO: Add status bar updates. 08/15/2024
 			await Task.Run(async () =>
 			{
 				Chat? chat = null;

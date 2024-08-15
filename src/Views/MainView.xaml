@@ -155,10 +155,6 @@
 				Text="{Binding ApiResponse, Mode=OneWay}"
 				TextWrapping="Wrap"
 				Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}, Mode=TwoWay}" />
-
-			<Grid Grid.Row="3">
-				
-			</Grid>
 		</Grid>
 		<view:StatusBarView
 			x:Name="statusBarUserControl"
