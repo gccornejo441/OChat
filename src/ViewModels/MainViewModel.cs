@@ -22,7 +22,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 
 	private string title;
 	public string Title
-	{  
+	{
 		get => title;
 		set => this.RaiseAndSetIfChanged(ref title, value);
 	}
@@ -141,6 +141,8 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 		try
 		{
 			// TODO: Add status bar updates. 08/15/2024
+
+			_barCommands.StatusBusy();
 			await Task.Run(async () =>
 			{
 				Chat? chat = null;
@@ -167,6 +169,7 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 					await chat.Send(Prompt);
 					Prompt = string.Empty;
 				}
+
 			});
 		}
 		catch (Exception ex)
@@ -176,6 +179,10 @@ public class MainViewModel : ReactiveObject, IMainViewModel
 			{
 				MessageBox.Show($"There was an error processing your prompt: {ex.Message}", "Processing Error Prompt", MessageBoxButton.OK, MessageBoxImage.Error);
 			});
+		}
+		finally
+		{
+			_barCommands.SetStatusReady();
 		}
 	}
 

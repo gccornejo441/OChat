@@ -70,7 +70,23 @@ public class EndpointService : ReactiveObject, IEndpointService<EndpointStatus>
 	{
 		if (status != null)
 		{
-			Status = status == EndpointStatus.Ready ? EndpointStatus.Ready : EndpointStatus.Unavailable;
+			switch (status)
+			{
+				case EndpointStatus.Ready:
+					status = EndpointStatus.Ready;
+					break;
+				case EndpointStatus.Busy:
+					status = EndpointStatus.Busy;
+					break; 
+				case EndpointStatus.Unavailable:
+					status = EndpointStatus.Unavailable;
+					break;
+				case EndpointStatus.Error:
+					status = EndpointStatus.Error;
+					break;
+				default:
+					break;
+			}
 		}
 
 		StatusChanged?.Invoke(this,status);
